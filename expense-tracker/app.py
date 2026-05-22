@@ -36,6 +36,11 @@ def profile():
     return "Profile page — coming in Step 4"
 
 
+@app.route("/terms")
+def terms():
+    return render_template("terms.html")
+
+
 @app.route("/expenses/add")
 def add_expense():
     return "Add expense — coming in Step 7"
