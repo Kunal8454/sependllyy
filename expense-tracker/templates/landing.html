@@ -55,6 +55,7 @@
 
     <div class="hero-actions">
         <a href="{{ url_for('register') }}" class="btn-primary">Start tracking free</a>
+        <button class="btn-ghost btn-video" id="videoTrigger">See how it works</button>
         <a href="{{ url_for('login') }}" class="btn-ghost">Sign in</a>
     </div>
 </section>
@@ -100,4 +101,56 @@
     </div>
 </section>
 
+<div class="modal-overlay" id="videoModal">
+    <div class="modal-dialog">
+        <div class="modal-header">
+            <span class="modal-label">How Spendly works</span>
+            <button class="modal-close" id="modalClose">&times;</button>
+        </div>
+        <div class="modal-body">
+            <iframe
+                class="modal-video"
+                id="videoFrame"
+                src=""
+                title="How Spendly works"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function() {
+    var trigger = document.getElementById('videoTrigger');
+    var modal = document.getElementById('videoModal');
+    var close = document.getElementById('modalClose');
+    var frame = document.getElementById('videoFrame');
+    var src = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
+
+    function openModal() {
+        frame.src = src;
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modal.classList.remove('is-open');
+        frame.src = '';
+        document.body.style.overflow = '';
+    }
+
+    trigger.addEventListener('click', openModal);
+    close.addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeModal();
+    });
+})();
+</script>
 {% endblock %}
